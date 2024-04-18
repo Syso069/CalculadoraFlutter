@@ -14,7 +14,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String numero = 'Número';
+  String numeroInicial = 'Número';
 
   void insereValor(String teclaDigitada) {
     switch (teclaDigitada) {
@@ -28,18 +28,30 @@ class _MyAppState extends State<MyApp> {
       case '7':
       case '8':
       case '9':
+      case ',':
         setState(() {
-          numero += teclaDigitada;
+          numeroInicial += teclaDigitada;
+
+          numeroInicial = numeroInicial.replaceAll(',', '.');
+
+          if(numeroInicial.contains('.')){
+
+          }else {
+              int numeroInt = int.parse(numeroInicial);
+              numeroInicial = numeroInt.toString();
+          }
+          
+          numeroInicial = numeroInicial.replaceAll('.', ',');
         });
         break;
 
       case 'AC':
         setState(() {
-          numero = '0';
+          numeroInicial = '0';
         });
 
       default:
-        numero += teclaDigitada;
+        numeroInicial += teclaDigitada;
         break;
     }
   }
@@ -60,7 +72,7 @@ class _MyAppState extends State<MyApp> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  numero,
+                  numeroInicial,
                   style: TextStyle(fontSize: 72),
                 )
               ],
@@ -77,7 +89,8 @@ class _MyAppState extends State<MyApp> {
                 ),
                 Text(''),
                 Text(''),
-                GestureDetector( onTap: () => insereValor('<x'),
+                GestureDetector(
+                  onTap: () => insereValor('<x'),
                   child: Text(
                     '<x',
                     style: TextStyle(fontSize: 40),
@@ -103,13 +116,14 @@ class _MyAppState extends State<MyApp> {
                   ),
                 ),
                 GestureDetector(
-                  onTap:() => insereValor('9'),
+                  onTap: () => insereValor('9'),
                   child: Text(
                     '9',
                     style: TextStyle(fontSize: 40),
                   ),
                 ),
-                GestureDetector( onTap: () => insereValor('%'),
+                GestureDetector(
+                  onTap: () => insereValor('%'),
                   child: Text(
                     '%',
                     style: TextStyle(fontSize: 40),
@@ -120,25 +134,29 @@ class _MyAppState extends State<MyApp> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                GestureDetector(onTap:() => insereValor('4'),
+                GestureDetector(
+                  onTap: () => insereValor('4'),
                   child: Text(
                     '4',
                     style: TextStyle(fontSize: 40),
                   ),
                 ),
-                GestureDetector( onTap: () => insereValor('5'),
+                GestureDetector(
+                  onTap: () => insereValor('5'),
                   child: Text(
                     '5',
                     style: TextStyle(fontSize: 40),
                   ),
                 ),
-                GestureDetector( onTap: () => insereValor('6'),
+                GestureDetector(
+                  onTap: () => insereValor('6'),
                   child: Text(
                     '6',
                     style: TextStyle(fontSize: 40),
                   ),
                 ),
-                GestureDetector( onTap: () => insereValor('X'),
+                GestureDetector(
+                  onTap: () => insereValor('X'),
                   child: Text(
                     'X',
                     style: TextStyle(fontSize: 40),
@@ -149,25 +167,29 @@ class _MyAppState extends State<MyApp> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                GestureDetector( onTap: () => insereValor('1'),
+                GestureDetector(
+                  onTap: () => insereValor('1'),
                   child: Text(
                     '1',
                     style: TextStyle(fontSize: 40),
                   ),
                 ),
-                GestureDetector( onTap: () => insereValor('2'),
+                GestureDetector(
+                  onTap: () => insereValor('2'),
                   child: Text(
                     '2',
                     style: TextStyle(fontSize: 40),
                   ),
                 ),
-                GestureDetector( onTap: () => insereValor('3'),
+                GestureDetector(
+                  onTap: () => insereValor('3'),
                   child: Text(
                     '3',
                     style: TextStyle(fontSize: 40),
                   ),
                 ),
-                GestureDetector( onTap: () => insereValor('-'),
+                GestureDetector(
+                  onTap: () => insereValor('-'),
                   child: Text(
                     '-',
                     style: TextStyle(fontSize: 40),
@@ -178,25 +200,29 @@ class _MyAppState extends State<MyApp> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                GestureDetector( onTap: () => insereValor('0'),
+                GestureDetector(
+                  onTap: () => insereValor('0'),
                   child: Text(
                     '0',
                     style: TextStyle(fontSize: 40),
                   ),
                 ),
-                GestureDetector( onTap: () => insereValor(','),
+                GestureDetector(
+                  onTap: () => insereValor(','),
                   child: Text(
                     ',',
                     style: TextStyle(fontSize: 40),
                   ),
                 ),
-                GestureDetector( onTap: () => insereValor('='),
+                GestureDetector(
+                  onTap: () => insereValor('='),
                   child: Text(
                     '=',
                     style: TextStyle(fontSize: 40),
                   ),
                 ),
-                GestureDetector( onTap: () => insereValor('+'),
+                GestureDetector(
+                  onTap: () => insereValor('+'),
                   child: Text(
                     '+',
                     style: TextStyle(fontSize: 40),
