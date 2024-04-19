@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -15,6 +17,10 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String numeroInicial = 'Número';
+
+  double primeiroNumero = 0.0;
+
+  String operacao = '';
 
   void insereValor(String teclaDigitada) {
     switch (teclaDigitada) {
@@ -34,13 +40,30 @@ class _MyAppState extends State<MyApp> {
 
           numeroInicial = numeroInicial.replaceAll(',', '.');
 
-          if(numeroInicial.contains('.')){
-
-          }else {
-              int numeroInt = int.parse(numeroInicial);
-              numeroInicial = numeroInt.toString();
+          if (numeroInicial.contains('.')) {
+          } else {
+            int numeroInt = int.parse(numeroInicial);
+            numeroInicial = numeroInt.toString();
           }
-          
+
+          numeroInicial = numeroInicial.replaceAll('.', ',');
+        });
+        break;
+
+      case '+':
+        operacao = teclaDigitada;
+        primeiroNumero = double.parse(numeroInicial);
+        numeroInicial = '0';
+        break;
+
+      case '=':
+        double resultado = 0.0;
+        if (operacao == '+') {
+          resultado = primeiroNumero + double.parse(numeroInicial);
+        }
+
+        setState(() {
+          numeroInicial = resultado.toString();
           numeroInicial = numeroInicial.replaceAll('.', ',');
         });
         break;
