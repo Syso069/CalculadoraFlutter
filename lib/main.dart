@@ -16,7 +16,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String numeroInicial = 'Número';
+  String numeroInicial = '0';
 
   double primeiroNumero = 0.0;
 
@@ -41,31 +41,65 @@ class _MyAppState extends State<MyApp> {
           numeroInicial = numeroInicial.replaceAll(',', '.');
 
           if (numeroInicial.contains('.')) {
+            //
           } else {
             int numeroInt = int.parse(numeroInicial);
             numeroInicial = numeroInt.toString();
           }
-
           numeroInicial = numeroInicial.replaceAll('.', ',');
         });
         break;
 
       case '+':
+      case '-':
+      case 'X':
+      case '/':
         operacao = teclaDigitada;
+        numeroInicial = numeroInicial.replaceAll(',', '.');
         primeiroNumero = double.parse(numeroInicial);
+        numeroInicial = numeroInicial.replaceAll('.', ',');
         numeroInicial = '0';
         break;
 
       case '=':
         double resultado = 0.0;
+
+        if (operacao == '/') {
+          if (double.parse(numeroInicial) * 1 == 0) {
+            print('ERROR: divisão por zero é zero');
+            return;
+          }
+        }
+
         if (operacao == '+') {
           resultado = primeiroNumero + double.parse(numeroInicial);
         }
 
-        setState(() {
-          numeroInicial = resultado.toString();
-          numeroInicial = numeroInicial.replaceAll('.', ',');
-        });
+        if (operacao == '-') {
+          resultado = primeiroNumero - double.parse(numeroInicial);
+        }
+
+        if (operacao == 'X') {
+          resultado = primeiroNumero * double.parse(numeroInicial);
+        }
+
+        if (operacao == '/') {
+          resultado = primeiroNumero / double.parse(numeroInicial);
+        }
+
+        String resultadoString = resultado.toString();
+
+        List<String> resultadoPartes = resultadoString.split('.');
+
+        if (int.parse(resultadoPartes[1]) * 1 == 0) {
+          setState(() {
+            numeroInicial = int.parse(resultadoPartes[0]).toString();
+          });
+        } else {
+          setState(() {
+            numeroInicial = resultado.toString();
+          });
+        }
         break;
 
       case 'AC':
